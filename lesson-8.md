@@ -1,5 +1,8 @@
 # Deep Learning Part II: Deep Learning from the Foundations
 
+> *Note
+> The document is mostly made from notes that I typed while in the class, that's why it is messy sometimes. It is a work in progress. When watching the videos I will be continuously updating the notes.*
+
 ## Intro
 - Very different part II of previous year
 - We will implement fastai library from foundations

@@ -219,8 +219,286 @@ broadcast into squared
 
 ### Break
 - Goal make code faster 
-how to do our own stuff
-how to write codes fast
-broadcast trick is one of the best for making loops fater. 
+- how to do our own stuff
+- how to write codes fast
+- broadcast trick is one of the best for making loops fater. 
+
+## Einstein summation
+- Popularized by einsteing for higher rank matrix
+- Compact representation for combining products and sums in a general way
+- if pytorch didnt have batchwise multiplication, noe new index oadded would transform it
+- c i j + a i k times b , j
+- a i k k j -> i j
+- using index inside string for notation and matrix
+- def matmul(a,b) return torch.einsum('ik,kj->ij', a, b)
+- now it is 16 times faster using einstein sum
+- trajedy that it exist
+- a programming language using string
+- amazing but so few thinkgs it does
+- I want to generalize to a language
+- hope is that swift giv ability to write stuffs that really fast 
+- swift is even faster than einsum
+
+### Pythorch op
+- use pytorchs function or operator directly for matrix multiplication
+- 50 thousand faster
+- m1.matmul
+- divide into batches, written into assemb, blal, library of linear algebra, for example cuBlAS
+- awfaw, bc program is limited to a subset of thinks that BLAS can write read
+- limited to python methods
+- people working on this on swifit
+- facebook research and tensor compresions
+- in python we are restricted to m1.matmul
+- still pure ehanced way is 10 thousand slower
+- need of libraries
+- t2 = m1@m2
+
+## Notebook 02 Fully Connected .ipynb
+
+### The foward and backward passes
+- x train, y train, x y get data
+- get standard deviation
+- normalize using standard deviation
+- note use training, not validation mean for normalizing validation set
+- afer doing that mean is close to zero and std close to 1
+- test function if it is really normalized
+-n,m get xtrain shape
+- c output size
+
+defining the model
+
+Model has one hidden layer
+
+Foundations version
+
+basic architecture
+
+number of hidden layers  nhis 50
+
+two layers is two wegiths and biases matrices
+
+w1 is random values divided by sqare root of m
+b are zeros
+
+w2 is random values (nh,1) divided by math sqarue of nh
+
+t is linear of three vectors
+
+divide by sqare root m then tensor has lower values
+
+simplified kaiming initialization, wrote a paper about it
+
+test mean and standard of weight 1
+
+thing that really matters when training
+
+fixup initialization
+paper with 10000 layers ....
+how initialization is made really matters
+spend a lot of time on this in depth
+first layer is defined by relu
+relu is grag data and clamp min to z (replace negative to zero)
+try to find the function internal on pytorch
+
+unfortunatelly does not have mean zero and std of 1
+
+demonstration 
+
+distribution of data
+then took evertyhing smaller and took out
+obviously mean and std are gong to differ
+one of the best papers of the last years
+suprassing human level performance on imagenet calssification
+full of great ideas
+read papers from competition winners if a great idea
+where competition ideas has 20 good 
+kine initialization
+seciont 2.2 initialization of filter weights for rectifiers
+are easier to train cbut a bat initializatiom still hamper the learning of a non linear system
+initializet with random gaussian distributions
+glorot and benchi proposded a new initialization
+paper undesrtand the difficulty of training deep neural netowrs
+
+well be reimplementing stuffs from the paper
+
+! read this paper
+
+one suggestion is another approach called normalized initialization
+
+however does not account to relu
+
+super simple is to replace the one in the top to a two in the top in relu
+divide to swqre of 2/m
+
+closer to std 1 and mean zero
+
+!! homework , read 2.2
+
+#### Foward propagation layer
+
+take it throuh step by step.
+6 paragraphs to read
+!! read section foward
+> "this leads to a zero-mean gaussian distribution whose standar deviation"
+
+something new and obvious is to replace relu to x.clamp_min(0)-0.5 which will return to the correct mean
+
+he had to add a mode callsed fan out 
+- fan ipreserves the magnitudes in the output pass
+    - Dividing by the fifrst or second
+- we need it because the weights shape is 784 by 50 while a linear torch is 50 by 784
+- look into source code to undertand using double question mark
+- it calls F.linear (F.nn.functional)
+- letds look
+- a linear layer with their transposed
+- thats why we gave the oposite when compared to torch code
+
+what about conv layers??
+
+check documentation
+mostly documentation
+mostly code is under $_ConvND$_ 
+at the very bottong theres the file conv
+it has a special multiplier math.sqrt(5)
+seem to work pretty badly
+always a good idea to add comment
+- feeling that this is not great
+- we desined our own activation function
+- of relu minus 0.5
+- using it the mean is almost zero and variance is almost one
+- make sense why this makes better results
+
+Doing a foward pass
+
+def model
+linear layer
+relu 
+linear layer
+
+time it
+test
+
+#### Loss function: MSE
+- simplify thinkgs using mean square error
+- expect a single vector
+- use squeze to get rid in output.squeeze()
+- very common broke code because squeeze into a scaler
+better to put dimension in squeeze (-1) for example
+y train, y validation get floats
+
+get the mean squared error
+
+### Gradients and backward pass
+- paper the matrix calculus you need for deep learning html by jeremy howard and terence parr: https://explained.ai/matrix-calculus/index.html
+
+> all you need to know is the chain rule
+
+start with an input, then a linear layer then a relu then second linear layer, then mse then y pred
+
+other way is
+y_pred = mse(lin2(relu(lin1(x))),y)
+
+we want the gradient of the ouput y with the respect of the input x
+
+y equals to f(u)
+u equals to f(x)
+derivatie dy/dx is dy/dy times du/dx
+thats all you need to know
+
+usually iti is not treated as division, but yo actually you cant
+defivatinve is taking some fuction
+dividing small change in y by small change in x
+
+start with mean squared error
+gradient of the loss with respect to outputprevious layer
+
+it is two times error 
+
+def mse_grad(input, target)
+
+the input of mse is the output of previous layer
+
+def gradient of relu
+
+either zero or 1 which is inp > 0 dot float times out.g
+
+linear gradient defined
 
 
+def foward and backward
+
+in backward pass
+mse_grad
+lin_grad
+relu_grad
+
+value inp.g is updated in each function
+
+loss is the mse we never use it
+
+the loss never appears in the gradients
+
+so w1.g w2.g ans so on contain the gradients
+
+let's clone weights and biases and test them
+
+we cheat a little bit and use pytorch autograd required grad to check our results
+
+using test near to check if results are correct
+
+### Layers as classes
+Refactory
+- recreating pytorch api
+
+class Relu()
+    def __call__ # treat relu as a function and call whats inside
+    safe input and outpu
+    def backpro self.inp.g = self.float.self.out
+    
+    
+for linear compute self.w.g in backward
+
+** backward always compute .g**
+
+Class model
+
+
+init has w1, b1, w2, b2
+
+def call with x and target
+
+def backwar with self.loss.backward() to save loss.g
+
+w1.g, b1.g w2.g 
+model = 
+
+However, that was slow!!
+
+### Module foward
+
+create a new def in module callde forward which initially raise not implemented
+
+class Relu(module)
+it used foward
+
+the thing to calculate the gradient with the respect to the weights, we can reexpress that with einsum
+now it is faster with einsum
+
+time it now is 143ms intesad of 3s
+
+> This is why we have to use those modules
+
+#### Without einsum
+
+repplace with matrix multiplication
+140ms
+
+implemented nn.linear 
+
+#### nn linear and nn.module
+even faster
+
+?? So, does pytorch uses or not autograd?
+
+### Next lesson
+train loop

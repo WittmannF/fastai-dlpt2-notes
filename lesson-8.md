@@ -64,7 +64,7 @@ Recreate fastai and much of pytorch? matrix multiply, torch.nn, using:
 - If you don't have a blog, try medium.com
 
 ## Recap of part I
-- He assumes that you don't remember everything. 
+- He assumes that you don't remember everything.
 - As we go on, if necessary, you go back and watch that video
 - Especially the second half
 - He assumes that you know know about SGD from the scratch
@@ -80,11 +80,11 @@ Recreate fastai and much of pytorch? matrix multiply, torch.nn, using:
 1. First we try to create something with way more capacity than we need
     - No regularization
     - Overfit
-2. Overfitting does not mean training loss lower than validation loss 
+2. Overfitting does not mean training loss lower than validation loss
     - A wealthy model almost always will have such behavior
     - **Overfitting is when you actually see your validation loss getting worse**
 - Possible three would be visualize output
-- One is easy, the two is more difficult. 
+- One is easy, the two is more difficult.
 
 ## Five steps to avoid overfitting
 1. More data
@@ -124,7 +124,7 @@ Recreate fastai and much of pytorch? matrix multiply, torch.nn, using:
 - Batch-norm
 - Resnet
     - We already have this last one from Part 1
-    
+
 **Goal of today's class**
 - Go from matrix multiplication to backward pass
 
@@ -135,7 +135,7 @@ Recreate fastai and much of pytorch? matrix multiply, torch.nn, using:
 ### How to pull out bits of code from jupyter into a package
 - Use the special comment `#export` to tell the system a cell that you want to keep and reuse.  
 - Then use the file [`notebook2script.py`](https://github.com/fastai/fastai_docs/blob/master/dev_course/dl2/notebook2script.py) which goes through the program and find cells with the special comment `#export` and put them into a python module.
-    - Path.stem.split("-") is used for the output filename, hence, the output name is the first portion before an undesrcore. If there's no underscore, then the full name. 
+    - Path.stem.split("-") is used for the output filename, hence, the output name is the first portion before an undesrcore. If there's no underscore, then the full name.
     - The exported module goes to a folder called `exp`
 - We can then import the exported module using `from exp.nb_00 import *`
 - Creating a test framework
@@ -143,11 +143,11 @@ Recreate fastai and much of pytorch? matrix multiply, torch.nn, using:
 - Use [`run_notebook.py`](https://github.com/fastai/fastai_docs/blob/master/dev_course/dl2/run_notebook.py) to run the tests outside of the jupyter notebook
     - `python run_notebook.py 01_matmul.ipynb` run the tests outside of the jupyter notebook
     - We can see the assertion error when running in the terminal
-- Now we have an automatable unit test framework on jupyter notebook 
+- Now we have an automatable unit test framework on jupyter notebook
 - Fire to execute a function
     - **It takes any function and automatically converts into a command-line interface**
     - Inputs of a function are converted into arguments in the command-line
-- Notebooks are json files. 
+- Notebooks are json files.
     - We can import cells and play around jupyter notebook files converting them to json files
     - Example: `
 
@@ -159,7 +159,7 @@ Recreate fastai and much of pytorch? matrix multiply, torch.nn, using:
 - convert numpy arrays to tensor (np is not allowed)
 - tensor was previoulsy imported from pytorch
 - get number of columns and rows from training data
-- Some visualizations and stats 
+- Some visualizations and stats
 - Doing some obvious tests from above
 - img = xtrain
 - img.view28
@@ -169,7 +169,7 @@ Recreate fastai and much of pytorch? matrix multiply, torch.nn, using:
 - wights receives random values 784 in and 10 out
 - bias initialized with zeros
 
-#### Matrix multiplication pseudocode
+### Matrix multiplication pseudocode
 - function of matrix multiplication
 - review of matrix multiplication from matrixmultiplication.xyz
     - A few loops going on: three
@@ -179,10 +179,10 @@ Recreate fastai and much of pytorch? matrix multiply, torch.nn, using:
 -  assert the shapes of ac and br are the same
 - c receives zeros with shape ar and br
 - for i in range ar
-    - for j in range 
+    - for j in range
         - for k in range(ac):
             - c(i,j)...
-    
+
 - m1 receives x_validation
 - m2 receives weights
 - time the usage of matrix multiplication
@@ -196,8 +196,7 @@ Recreate fastai and much of pytorch? matrix multiply, torch.nn, using:
 - sum both tensors
 - a less tham b conveted to a float and get their mean
 - m receives a tensor matrix
-
-**calculate frobenius norm**
+- **calculate frobenius norm**
 - trying to translate equations into code
 - sum is two for loops, one in i and other in j
 - square of the sum of all the terms
@@ -205,7 +204,7 @@ Recreate fastai and much of pytorch? matrix multiply, torch.nn, using:
     - He copy and paste from google wikipedia
 - m times m sum and sware root
 
-#### Elementwise matmul
+### Elementwise matmul
 - replace third loop with frobenius norm
 - c = a_i + b_j . sum
 - time is 700 faster
@@ -214,7 +213,7 @@ Recreate fastai and much of pytorch? matrix multiply, torch.nn, using:
 - define function near(a,b) using torch. allclose()
 - test_near receives test(near)
 
-#### Broadcasting
+### Broadcasting
 - run at cuda
 - remove loops
 - describes how arrays with differents shapes are treated during arithmetic operations
@@ -224,26 +223,26 @@ Recreate fastai and much of pytorch? matrix multiply, torch.nn, using:
 - a+1 also broadcast 1 to the tensor a
 - 2*m broadcasts 2 to tm
 
-#### Broadcasting a vector to a matrix
+### Broadcasting a vector to a matrix
 - c receives a tensor
 - m and c have different shapes (3x3) and (3x1)
-- array is broadcasted to 
+- array is broadcasted to
 - theres no loop but it looks like as there was a loop
 - c.expand_as(m)
 - version of c as a broadcast tensor rank 2 instead of array
 - c speed with no looop
 - t.storashe show sthat thers onl 3 values bein stored
-- b.stride() 
+- b.stride()
 - tensor behave like higher rank things
 
 what if we want to take a column instead fo a row?
 - c.unsqueeze(0j=) is a shape one comma 3
 - c.unsqueeze 1 is a shape three coma one
-- this is interesting because 
+- this is interesting because
 - c none columns is is same shape 1 and c : none is same of squeeze 1
 - c[:, None].expand as m broadcast as columns
 
-#### Broadcasting in Excel
+### Broadcasting in Excel
 - semicol and none is column and note afer is row
 
 ### Eliminating loops with broadcasting
@@ -255,7 +254,7 @@ what if we want to take a column instead fo a row?
 - 3200 faster now with broadcasting
 - getting rid of looops also reduces errors
 
-#### Broadcasting rules
+### Broadcasting rules
 - c[None, :] is row based
 - shape 1 by 3
 - eleentwise multiplication
@@ -263,14 +262,13 @@ what if we want to take a column instead fo a row?
 - broadcast into squared
 - they dont have to be in the same rank
 - you can normalize by channel with no limnes of code
+- **Class Break**
+  - Goal make code faster
+  - how to do our own stuff
+  - how to write codes fast
+  - broadcast trick is one of the best for making loops fater.
 
-### Break
-- Goal make code faster 
-- how to do our own stuff
-- how to write codes fast
-- broadcast trick is one of the best for making loops fater. 
-
-## Einstein summation
+### Einstein summation
 - Popularized by einsteing for higher rank matrix
 - Compact representation for combining products and sums in a general way
 - if pytorch didnt have batchwise multiplication, noe new index oadded would transform it
@@ -283,10 +281,10 @@ what if we want to take a column instead fo a row?
 - a programming language using string
 - amazing but so few things it does
 - I want to generalize to a language
-- hope is that swift give ability to write stuffs that really fast 
+- hope is that swift give ability to write stuffs that really fast
 - swift is even faster than einsum
 
-### Pythorch operator
+### Pytorch operator
 - use pytorchs function or operator directly for matrix multiplication
 - 50 thousand faster
 - m1.matmul
@@ -316,7 +314,7 @@ Defining the model
 
 - Model has one hidden layer
 - Foundations version
-- basic architecture 
+- basic architecture
 - number of hidden layers  nhis 50
 - two layers is two wegiths and biases matrices
 - w1 is random values divided by sqare root of m
@@ -348,7 +346,7 @@ Defining the model
     - > one of the most extraordinary papers in the last few years
     - full of great ideas
     - read papers from competition winners if a great idea
-    - where competition ideas has 20 good 
+    - where competition ideas has 20 good
     - kine initialization
     - Section 2.2 initialization of filter weights for rectifiers
     - are easier to train cbut a bat initializatiom still hamper the learning of a non linear system
@@ -367,7 +365,7 @@ Defining the model
     - $$std = sqrt(2/((1+a^2) * fan_in))$$
     - closer to std 1 and mean zero
 
-- **!!HOMEWORK: Read 2.2 of [2](https://arxiv.org/abs/1502.01852) 
+- **!! HOMEWORK: Read 2.2 of [2](https://arxiv.org/abs/1502.01852) **
 
 #### Foward propagation layer
 
@@ -378,7 +376,7 @@ take it throuh step by step.
 
 something new and obvious is to replace relu to x.clamp_min(0)-0.5 which will return to the correct mean
 
-he had to add a mode callsed fan out 
+he had to add a mode callsed fan out
 - fan ipreserves the magnitudes in the output pass
     - Dividing by the fifrst or second
 - we need it because the weights shape is 784 by 50 while a linear torch is 50 by 784
@@ -392,7 +390,7 @@ what about conv layers??
 
 check documentation
 mostly documentation
-mostly code is under $_ConvND$_ 
+mostly code is under $_ConvND$_
 at the very bottong theres the file conv
 it has a special multiplier math.sqrt(5)
 seem to work pretty badly
@@ -407,7 +405,7 @@ Doing a foward pass
 
 def model
 linear layer
-relu 
+relu
 linear layer
 
 time it
@@ -447,7 +445,7 @@ dividing small change in y by small change in x
 start with mean squared error
 gradient of the loss with respect to outputprevious layer
 
-it is two times error 
+it is two times error
 
 def mse_grad(input, target)
 
@@ -489,8 +487,8 @@ class Relu()
     def __call__ # treat relu as a function and call whats inside
     safe input and outpu
     def backpro self.inp.g = self.float.self.out
-    
-    
+
+
 for linear compute self.w.g in backward
 
 ** backward always compute .g**
@@ -504,8 +502,8 @@ def call with x and target
 
 def backwar with self.loss.backward() to save loss.g
 
-w1.g, b1.g w2.g 
-model = 
+w1.g, b1.g w2.g
+model =
 
 However, that was slow!!
 
@@ -528,7 +526,7 @@ time it now is 143ms intesad of 3s
 repplace with matrix multiplication
 140ms
 
-implemented nn.linear 
+implemented nn.linear
 
 #### nn linear and nn.module
 even faster

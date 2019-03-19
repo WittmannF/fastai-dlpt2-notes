@@ -1,17 +1,12 @@
-# Deep Learning Part II: Deep learning from the foundations
-
-## Some logistics
-- Room 153 @ USF (101 Howard ST)
-- In person 
-- International visotiors prior
+# Deep Learning Part II: Deep Learning from the Foundations
 
 ## Intro
-- Very different part II
-- Implement fastai library from foundations
+- Very different part II of previous year
+- We will implement fastai library from foundations
     - Basic matrix calculus
     - Training loops
     - Optimizers customized
-    Customized annealing
+    - Customized annealing
 - Read papers
 - Solve applications that are not fully backed
 - In the end, implement on Swift
@@ -28,12 +23,11 @@
 - S4TF Pros
     - Write everything in swift
     - See whats happening
-    opportunities
+    - opportunities
 - Cons
     - Minimal Ecosystem
     - Very little works
     - Lots to learn
-    
 - PyTorch Pros
     - Get work done now
     - Great ecosystem
@@ -42,7 +36,6 @@
     - Performance
     - Pythons types
     - Mismatch with backend libs
-
 - Swift will possibibly take place in this field
 
 ## What do we mean by from the foudations?
@@ -61,31 +54,66 @@ Recreate fastai and much of pytorch? matrix multiply, torch.nn, using:
 - Tweak everythin
 - Contribute
 
-## There are many opportunities
+## There are many opportunities in this class
+- Your homework will be at the cutting edge
+- Few DL practictioners know what you know now
+- Experiment lots, especially in your area of expertise
+- Much of what you find will have not be written about before
+- Don't wait to be perfect before you start communicating
+    - > Write stuff down for the You of 6 months ago, that's your audience
+- If you don't have a blog, try medium.com
 
-## Review of part I
+## Recap of part I
+- He assumes that you don't remember everything. 
+- As we go on, if necessary, you go back and watch that video
+- Especially the second half
+- He assumes that you know know about SGD from the scratch
+- Topics
+    - Convolutions
+    - Weight decay
+    - Dropout
+    Batch
 
 ## Overfit > Reduce overfitting > There's no step 3
+- Try to make sure we can train good models
+- There are ~~three~~two steps for trainig a good model
+1. First we try to create something with way more capacity than we need
+    - No regularization
+    - Overfit
+2. Overfitting does not mean training loss lower than validation loss 
+    - A wealthy model almost always will have such behavior
+    - **Overfitting is when you actually see your validation loss getting worse**
+- Possible three would be visualize output
+- One is easy, the two is more difficult. 
 
 ## Five steps to avoid overfitting
 1. More data
-2. Data aug
+2. Data augmentation
 3. Generalizable architectures
 4. Regularization
 5. Reduce archtecture complexity
+
+- Most begginers start with 5 but that should be the last
+- Unless the model is too slow
 
 ## It's time to start reading papers
 - Even familiar stuff look complex in a paper!
 - Papers are important for deep learning beyond the basics, but hard to read
 - Google for a blog post describing the paper
+    - They are not selected for their outstanding clarity of comunication
+    - Usually a blog post will do the job way better than the paper does
 - Learn to produce greek letters
+
 
 ## List of mathematical symbols on Wikipedia
 - https://en.wikipedia.org/wiki/List_of_mathematical_symbols
-- or use detexify
+- or use [detexify](http://detexify.kirelabs.org/classify.html)
 
-In the next couple of lessons:
+# In the next couple of lessons
+
 ## Steps to a basic modern CNN model
+> We are going to create a pretty confident modern CNN model
+
 - Matmul
 - Relu/init
 - Fully Connected foward
@@ -95,13 +123,34 @@ In the next couple of lessons:
 - Optim
 - Batch-norm
 - Resnet
+    - We already have this last one from Part 1
+    
+**Goal of today's class**
+- Go from matrix multiplication to backward pass
 
-## Lesson 00.ipynb
-- How to export a code from jupyter 
+## [Lesson 00.ipynb](
+https://github.com/fastai/fastai_docs/blob/master/dev_course/dl2/00_exports.ipynb)
+- How to buld an app on jupyter notebooks
+- More productive on Jupyter notebooks
+
+### How to pull out bits of code from jupyter into a package
+- Use the special comment `#export` to tell the system a cell that you want to keep and reuse.  
+- Then use the file [`notebook2script.py`](https://github.com/fastai/fastai_docs/blob/master/dev_course/dl2/notebook2script.py) which goes through the program and find cells with the special comment `#export` and put them into a python module.
+    - Path.stem.split("-") is used for the output filename, hence, the output name is the first portion before an undesrcore. If there's no underscore, then the full name. 
+    - The exported module goes to a folder called `exp`
+- We can then import the exported module using `from exp.nb_00 import *`
+- Creating a test framework
+    - `test` and `test_eq` using `assert`
+- Use [`run_notebook.py`](https://github.com/fastai/fastai_docs/blob/master/dev_course/dl2/run_notebook.py) to run the tests outside of the jupyter notebook
+    - `python run_notebook.py 01_matmul.ipynb` run the tests outside of the jupyter notebook
+    - We can see the assertion error when running in the terminal
+- Now we have an automatable unit test framework on jupyter notebook 
 - Fire to execute a function
-- Play around on jupyter, automate stuffs, and use fire
-? So fire is used to execute methods and test them?
-- You truly program on jupyter
+    - **It takes any function and automatically converts into a command-line interface**
+    - Inputs of a function are converted into arguments in the command-line
+- Notebooks are json files. 
+    - We can import cells and play around jupyter notebook files converting them to json files
+    - Example: `
 
 ## Matrix multiplication
 - import mnist

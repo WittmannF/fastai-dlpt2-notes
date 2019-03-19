@@ -367,7 +367,7 @@ Defining the model
     - $$std = sqrt(2/((1+a^2) * fan_in))$$
     - closer to std 1 and mean zero
 
-- **!! HOMEWORK: Read 2.2 of [2](https://arxiv.org/abs/1502.01852) **
+- **!!HOMEWORK: Read 2.2 of [2](https://arxiv.org/abs/1502.01852)**
 
 #### Foward propagation layer
 

@@ -19,7 +19,6 @@
 - Cutting edge is really about engineer, not about papers
     - Who can bake that things in code
 - Part II will be more about bottom up (with code)
-    - With code
 - Create your own algorithm to solve the things you do.
 - Today we'll implement matrix multiplication from scratch with Python
 

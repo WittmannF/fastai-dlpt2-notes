@@ -2,6 +2,10 @@
 
 > *NOTE: The document is mostly made from notes that I typed while in the class, that's why it is messy sometimes. It is a work in progress. When watching the videos I will be continuously updating the notes.*
 
+## Key Points and TODO
+- [ ] convince yourself on why ` c[i]=(a[i,None]*b).sum(dim=0)` works in the Broadcasting section
+- [1:23:00](https://youtu.be/4u8FxNEDUeg?t=5002) Notebook 02 Fully Connected Layers (file [02_fully_connected.ipynb](https://github.com/fastai/fastai_docs/blob/master/dev_course/dl2/02_fully_connected.ipynb))
+
 ## Intro
 - Very different part II of previous year
 - We will implement fastai library from foundations (from scratch)

@@ -4,17 +4,24 @@
 
 ## Intro
 - Very different part II of previous year
-- We will implement fastai library from foundations
+- We will implement fastai library from foundations (from scratch)
     - Basic matrix calculus
     - Training loops
     - Optimizers customized
     - Customized annealing
-- Read papers
-- Solve applications that are not fully backed
+    - Actually something where you can train world class models
+- Read and implement papers
+- Solve applications that are not fully backed in the fastai library
 - In the end, implement on Swift
+- So many papers nowaday
+    - and says minor variations of the same thing
+- Show the foundations so that you can choose your 12 papers
 - Cutting edge is really about engineer, not about papers
     - Who can bake that things in code
 - Part II will be more about bottom up (with code)
+    - With code
+- Create your own algorithm to solve the things you do.
+- Today we'll implement matrix multiplication from scratch with Python
 
 ## Embracing Swift for Deep Learning
 - Chris

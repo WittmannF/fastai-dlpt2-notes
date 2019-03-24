@@ -4,7 +4,8 @@
 
 ## Key Points and TODO
 - [ ] **HOMEWORK:** convince yourself on why ` c[i]=(a[i,None]*b).sum(dim=0)` works in the Broadcasting section
-- [1:23:00](https://youtu.be/4u8FxNEDUeg?t=5002) Notebook 02 Fully Connected Layers (file [02_fully_connected.ipynb](https://github.com/fastai/fastai_docs/blob/master/dev_course/dl2/02_fully_connected.ipynb))
+- [ ] **HOMEWORK:** Read Section 2.2 of https://arxiv.org/abs/1502.01852
+
 
 ## Intro
 - Very different part II of previous year

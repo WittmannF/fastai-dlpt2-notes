@@ -274,6 +274,113 @@
   - data loader will be shuffled
 - fit and do five epochs
 - accuracy of 0.968
-- Break
+- Class Break
 
-  
+## An infinitelly customazible training loop
+- current fit function
+    for each epoch
+        for each batch
+            predict
+            loss
+            backward
+            step
+- but there are multiple tweaks that we want to add
+    - keeping track of losses and metrics
+    - now we have tensorboard integration
+    - mixed precision training
+    - or more complex trainings like GANs
+- so either have to rewrite a few loop for each new kind of training
+- or try to write something that incorporates eerything that you can think of
+- fortunately there is a way around this: callbacks
+    - let you not only look up but also sutomize every etep
+    - those updates can be new vaulues or flags that skip steps or stop the training
+- then eacch tweak of the trianing loop can be entirely written in its own callback 
+    And then you can mi and match those blocks together
+- case study:
+    - GAN was defined as a GAN module
+    - check if it is a generative or critic 
+    - generator loss and critic loss
+    - GAN trainir would switch each
+    - and then would set requires_grad as appropriate
+    - and would define the generator mode
+    - very few codes
+    
+## DataBunch/Learner
+- benefits of packaging things together
+- Factor out the connected pieces of info out of the fit augmented list
+- lets replace it with something that looks like this
+    - fit(1, learn)
+- This allow us to tweak whats happening inside the training loop in other places of the code because the larner object will be mutable so changing its attributes elsewhere will be seen in our training looop
+- so that's our databunch class
+- data model
+- return model and optimizer
+- everything stored in Learner class
+    - no logic, just storing the parameters
+- learn = Learner(*get_model(data), loss_func, data)*
+
+## CallbackHandler
+- def one_batch
+    - fit loop has epochs and learner
+- class Callback()
+- Callbackhandler
+    - keep track of all the callbacks
+- Example of TestCallback
+    - begin_fit
+    - after_step(self)
+- fit(1, learn)
+    - it did 10 batches
+
+## Runner
+- future version of fast ai
+- simpler fit
+- factoring into Oriented Objects
+- Callback
+    - has a name property
+    - if you have a name traineval
+    and call calmel2snake(cnmame)
+- we remove ccallback in the name and then this is its name
+- it actually assigns attribute into a name. 
+- Now we have a runner 
+- Let's use to add metrics
+- Class averageStatsCallback
+    - defines epoch
+    - after epoch
+    - after loss
+    - different batch sizes was fixed
+- run = Runner(cbs=stats)
+- run.fit.
+- the main thing is def(fit, epochs,learn)
+    - should recognize this
+    - calls each at each time
+ 
+ ## One cicle training
+ 
+ ### Annealing
+ - We'll create a callback to make a hiperparameter scheduler
+    - Heple have been pointin out that we can schedule...
+    - As you train a model, goes through differnet fase, lost function landscapes, look very different in the start in the begining, medion and end
+        - schedule is super handy
+- Class ParamScheduler(Callback):
+    - def set_param
+        - iterate over parameter groups
+
+- We need a function that just takes position
+    We do partial
+- Decorator is a function that returns a function
+- It is not possible to plot tensors
+    - Solution: add property ndim in tensor
+- Create another function called combine_schedulers
+- Nice gentle warmup in the beginning, increases LR and 
+    - last 4 monts you need to rain a high lr for a long time
+    - but also you have to keep in a smal learning rate for a while
+
+- All the pieces that we need for trying out
+- Hopefully many things to try out
+- Next week Conv Nets
+- WE will start using GPU
+- Callback 
+!! Try some examples simple implementations using callbacks
+- manual 
+- see inside models
+- find ways to train more nicely 
+- and cover until notebook 10

@@ -1,7 +1,7 @@
 # Lesson 10
 - (off topic) Jeremy uses software called OBS for recording classes.
     - Streaming key from youtube is linked
-- well be using pytorch-ninghtly
+- we'll be using pytorch-ninghtly
 - Sharing unpublished research
 
 ## Wrapping up our CNN
@@ -18,6 +18,8 @@
 
 ### Steps to a basic modern CNN model
 - matmul > ..
+- we've got until a basic training loop
+    - missing conv > opt > batch-norm > Resnet
 ### Today were going to start move from a minimal training loop to something that is SoTA on Imagenet
 - Cuda, convolutions, hooks, normalization, transforms, weight decay, label smoothin, Optimization, skip connection architectures
 - or at least pretty close

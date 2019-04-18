@@ -131,4 +131,18 @@
 - List of special tokens: https://forums.fast.ai/uploads/default/original/3X/b/1/b12bc835a3bda16de1d44ccf1a040b6b1bf364f1.png
 - Stop words are a terrible idea
   - Never do this
-- 
+
+# Notebook 12a
+- RNN Dropout
+- Dropout are applied to the weigths
+
+# Why learn Swift for TensorFlow
+- The Swift community 
+## Questions to Chris
+- Swift playground
+- a swift tour google about it
+- Goals are to substract on complexity
+  - Avoid GPU for example
+  - Works fast from top to botton
+  - 
+

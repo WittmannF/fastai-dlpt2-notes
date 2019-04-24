@@ -276,3 +276,5 @@ AS of april 2019 a small matrix multipy on gpu using tf eager takes 0.28 ms 10x 
 - And one Cycle Train
 - 3 4 times slower than Pytorch and twice memory
     - but it was made in two weeks
+
+## For next week

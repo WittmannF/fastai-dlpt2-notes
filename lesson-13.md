@@ -106,7 +106,7 @@ var someFloat: Float = 1 + 4*9
 
 //Jeremy might not like greek letters but he surely loves emoji
 var emojy...
-```
+
 
 func distance(x: Float, y: Float) -> Float {
     return sqrt(x*x+y*y)
@@ -278,3 +278,9 @@ AS of april 2019 a small matrix multipy on gpu using tf eager takes 0.28 ms 10x 
     - but it was made in two weeks
 
 ## For next week
+- In what order should i compute my alues
+- vectorization makes it faster
+- parallel
+- first declare the function
+- and schedule the desired behavior to be computed. 
+- we are moving towards tools with swift that can access things like Halide or XLE

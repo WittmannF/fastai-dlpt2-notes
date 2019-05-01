@@ -151,6 +151,65 @@
 ## Table with unsafe[mutable][raw][buffer]pointer[<T>]
 - Pointers are just memory addresses. Direct memory access is unsafe. Mutable means you can write it ...
 
+## For DS going low level
+- Huge world called sparse convolutions
+- two people in the worold doing that because requires extra cuda code
+- used to know only excel and then visualB
 
+## Overwhelness of too many new languages
+- 30s in python to load images, then 11s using cuda and then on opencv 7.2 seconds 
+- Have no choice 
 
+## Data block foundations, in Swifity/functional style
+- comparing to the python version is significantly faster
 
+- problems with datablocks in python
+  - difficult to deal
+- One little package of imformation and swift will tell if something is missing
+- understand whats going
+- using protocols
+
+## Protocols in Swift
+- interfaces, typeclasses or abstract classes
+
+## Split interface and implementation
+- with this approach swift willl tell how the function should been called
+
+## Define behaviros of a group of types
+- describes a behavior of a group of types
+- has a name, expected behavior, infariants
+
+## protocols compose and refine
+
+## Protools and generics work together
+- protococls give ability to define functionality over type classes with <> syntax
+- One fucntion that will 
+
+## Protocols provide Mixins
+- give new methods to all implementations of a protocol
+
+## Mixins show up where they make sense
+
+## Protocols: Lots of more to learn
+- just skimming the surface
+- blog posts
+
+## OFF
+- https://en.wikipedia.org/wiki/Category:Numerical_programming_languages
+
+## Fully connected model
+### Foward and backward passes
+
+## Mutation game
+- x.append in swift vs python
+- python end up mutable in y if x=y
+## Values vs References
+## Tensor references causes
+- full of clones in fast ai
+
+## What if high level api design was able to influece the creation of a differentiable programming language?
+- Stateful Optmizer
+- Callbacks v2
+- datablock api newly functional
+- But still havent answered the question. What if keypaths were a query language. What does an embedded DSL for writing kernels look like?
+- What could DS do with an infinitely hackable differentiable language?

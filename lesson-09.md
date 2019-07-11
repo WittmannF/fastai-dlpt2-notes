@@ -1,5 +1,7 @@
 # How to train your model
 
+- Video: https://www.youtube.com/watch?time_continue=1&v=AcA8HAYh7IE
+
 ## Revisit questions from the last week
 - Research about the division from sqrt(5) in nn.comv2d
 - Def get data

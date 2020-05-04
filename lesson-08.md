@@ -341,7 +341,7 @@ Defining the model
 
 - **[1] Fixup initialization:** https://arxiv.org/abs/1901.09321
     - paper with 10000 layers just with careful initialization
-- how initialization is made really matters
+- how initialization is made, really matters
 - spend a lot of time on this in depth
 - first layer is defined by relu
 - relu is grag data and clamp min to z (replace negative to zero)
@@ -360,11 +360,11 @@ Defining the model
     - full of great ideas
     - read papers from competition winners if a great idea
     - where competition ideas has 20 good
-    - kine initialization
+    - kaiming initialization
     - Section 2.2 initialization of filter weights for rectifiers
-    - are easier to train cbut a bat initializatiom still hamper the learning of a non linear system
-    - initializet with random gaussian distributions
-    - glorot and benchi proposded a new initialization
+    - are easier to train cbut a bit initializatiom still hamper the learning of a non linear system
+    - initialize with random gaussian distributions
+    - Glorot and Bengio proposded a new initialization
 
 - **[3] Understanding the difficulty of training deep feedforward neural networks**: http://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf
     - Very readable and practible
@@ -373,7 +373,7 @@ Defining the model
     - **One suggestion is another approach called normalized initialization**
         - Based on the square root
 
-- [2](https://arxiv.org/abs/1502.01852) pointed out that the initializatoin does not account for relu
+- [2](https://arxiv.org/abs/1502.01852) pointed out that the initialization does not account for relu
     - super simple solution is to replace the one in the top to a two in the top of the initializaton
     - $$std = sqrt(2/((1+a^2) * fan_in))$$
     - closer to std 1 and mean zero
@@ -382,7 +382,7 @@ Defining the model
 
 #### Foward propagation layer
 
-take it throuh step by step.
+take it through step by step.
 6 paragraphs to read
 !! read section foward
 > "this leads to a zero-mean gaussian distribution whose standar deviation"
@@ -390,8 +390,8 @@ take it throuh step by step.
 something new and obvious is to replace relu to x.clamp_min(0)-0.5 which will return to the correct mean
 
 he had to add a mode callsed fan out
-- fan ipreserves the magnitudes in the output pass
-    - Dividing by the fifrst or second
+- fan-in preserves the magnitudes in the output pass
+    - Dividing by the first or second
 - we need it because the weights shape is 784 by 50 while a linear torch is 50 by 784
 - look into source code to undertand using double question mark
 - it calls F.linear (F.nn.functional)
@@ -451,8 +451,8 @@ u equals to f(x)
 derivatie dy/dx is dy/dy times du/dx
 thats all you need to know
 
-usually iti is not treated as division, but yo actually you cant
-defivatinve is taking some fuction
+usually derivative is not treated as division, but yo actually you can't
+derivative is taking some fuction
 dividing small change in y by small change in x
 
 start with mean squared error
